@@ -32,7 +32,7 @@
           const element = fixture('BasicTestFixture');
           assert.equal(element.prop1, 'wk-wc-video');
           const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
+          const elementHeader = elementShadowRoot.querySelector('video');
           assert.equal(elementHeader.innerHTML, 'Hello wk-wc-video!');
         });
 
