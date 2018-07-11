@@ -1,4 +1,5 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+//import videojs from 'video.js/dist/video.es';
 
 /**
  * `wk-wc-video`
@@ -18,31 +19,9 @@ class WkWcVideo extends PolymerElement {
         }
       </style>
       <h2>Hello [[wkProp.video.test]]!</h2>
-      <dom-if if="[[isVideo]]">
-        <template>
-          <video width="{{prop.width}}" id="[[prop.id]]"
-            class="[[prop.class]]"
-            preload="[[prop.preload]]"
-            poster="[[prop.poster]]"
-            data-setup="[[prop.data-setup]]"
-            controls="[[attr.controls]]">
-            <dom-repeat items="{{sources}}">
-              <template>
-                <source src="{{item.src}}" type="{{item.type}}"></source>
-              </template>
-            </dom-repeat>
-              <p class="vjs-no-js">
-                To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://video.com/html5-video-support/" target="_blank"> supports HTML5 video</a>
-              </p>
-          </video>
-        </template>
-      </dom-if>
     `;
   }
-  constructor() {
-    super();
-    this.isVideo = false;
-  }
+
   static get properties() {
     return {
       wkProp: {
@@ -58,19 +37,39 @@ class WkWcVideo extends PolymerElement {
     ];
   }
 
-  _initProp(wkProp) {
-    this.prop = wkProp.video.prop;
-    this.prop.width = this.prop.width || this.offsetWidth;
-    this.attr = wkProp.video.attr;
-    this.sources = wkProp.video.sources;
-
-    // Render
-    this.isVideo = true;
+  _appendElement(parent, typeElement, keysElement) {
+    let newElement = document.createElement(typeElement);
   
-    // @TODO: Add and render video with properties, attributes and sources programatically
-    // const video = this.shadowRoot.getElementById(wkProp.video.prop.id);
-    // video.play()
+      switch (typeElement) {
+        case "props":
+          map.forEach((value, key) => newElement.setAttribute(key, value));
+          break;
+        case "childs":
+          let map = new Map(Object.entries(elObj));
+          map.forEach((keysElement, typeElement) => this._appendElement(newElement, typeElement, keysElement));
+          break;
+        default:
+          ///////////////////////////////
+          break;
+      }
+      if (parent.shadowRoot) {
+        parent.shadowRoot.appendChild(newElement);
+      }
+      else {
+        parente.appendChild(newElement);
+      }
+  } 
 
+  _renderElement(elObj, whereAppend){
+    let map = new Map(Object.entries(elObj));
+
+    map.forEach((keysEleme1nt, typeElement) => this._appendElement(this, typeElement, keysElement));
+  }
+  
+  _initProp(wkProp) {
+    let prop = wkProp.video.prop;
+    prop.width = prop.width || this.offsetWidth;
+    this._renderElement(wkProp, this.shadowRoot);
   }
 
   // Captura de eventos de recepción

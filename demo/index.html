@@ -35,17 +35,25 @@
                 "preload":"auto",
                 "class": "video-js",
                 "poster": "//vjs.zencdn.net/v/oceans.png",
-                "data-setup": {}
+                "data-setup": {},
+                "controls": false
               },
-              "attr": {"controls": false},
-              "sources": [
+              "childs": [
                 {
-                  "src": "//vjs.zencdn.net/v/oceans.mp4",
-                  "type": "video/mp4"
+                  "source": {
+                    "prop" : {
+                      "src": "//vjs.zencdn.net/v/oceans.mp4",
+                      "type": "video/mp4"
+                    }
+                  }
                 },
                 {
-                  "src": "//vjs.zencdn.net/v/oceans.webm",
-                  "type": "video/webm"
+                  "source":{
+                    "prop": {
+                      "src": "//vjs.zencdn.net/v/oceans.webm",
+                      "type": "video/webm"
+                    }
+                  }
                 }
               ]
             }

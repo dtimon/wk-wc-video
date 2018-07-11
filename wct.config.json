@@ -1,0 +1,68 @@
+{
+    "suites": [
+        "test"
+    ],
+    "expanded": true,
+    "persistent": false,
+    "testTimeout": 60000,
+    "plugins": {
+        "local": {
+            "disabled": false,
+            "browsers": [
+                "chrome"
+            ],
+            "browserOptions": {
+                "chrome": [
+                    "--headless",
+                    "--no-sandbox"
+                ],
+                "firefox": [
+                    "--headless"
+                ]
+            }
+        },
+        "sauce": {
+            "disabled": true,
+            "browsers": [
+                {
+                    "browserName": "chrome",
+                    "platform": "OS X 10.11",
+                    "version": "58.0"
+                }
+            ]
+        },
+        "istanbul": {
+            "dir": "coverage",
+            "reporters": [
+                "text",
+                "text-summary",
+                "lcov",
+                "json"
+            ],
+            "include": [
+                "**/*.html",
+                "**/*.js"
+            ],
+            "exclude": [
+                "index.html",
+                "bower_components*/**",
+                "node_modules/**",
+                "coverage/**",
+                "vendor/**",
+                "dist/**",
+                "build/**",
+                "test/**",
+                "demo/**"
+            ],
+            "thresholds": {
+                "global": {
+                    "statements": 70,
+                    "branches": 70,
+                    "functions": 70,
+                    "lines": 70
+                }
+            }
+        }
+    },
+    "verbose": false
+}
