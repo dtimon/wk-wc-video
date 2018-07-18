@@ -27,7 +27,7 @@
         <template>
           <wk-wc-video wk-prop='{
             "video": {
-              "prop": {
+              "$": {
                 "na_width": 300,
                 "na_height": 100,
                 "test": "I am videojs",
@@ -38,10 +38,10 @@
                 "data-setup": {},
                 "controls": false
               },
-              "childs": [
+              "$$": [
                 {
                   "source": {
-                    "prop" : {
+                    "$" : {
                       "src": "//vjs.zencdn.net/v/oceans.mp4",
                       "type": "video/mp4"
                     }
@@ -49,7 +49,7 @@
                 },
                 {
                   "source":{
-                    "prop": {
+                    "$": {
                       "src": "//vjs.zencdn.net/v/oceans.webm",
                       "type": "video/webm"
                     }

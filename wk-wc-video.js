@@ -1,6 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-//import videojs from 'video.js/dist/video.es';
 
+//console.log(videojs);
 /**
  * `wk-wc-video`
  * Video component for polymer 3
@@ -38,36 +38,52 @@ class WkWcVideo extends PolymerElement {
   }
 
   _appendElement(parent, typeElement, keysElement) {
+    
     let newElement = document.createElement(typeElement);
-  
-      switch (typeElement) {
-        case "props":
-          map.forEach((value, key) => newElement.setAttribute(key, value));
+    
+    let map = new Map(Object.entries(keysElement));
+
+    map.forEach((value, key) => {
+      let map = new Map(Object.entries(value));
+      switch (key) {
+        case "$":          
+          map.forEach(
+            (value, key) => {
+              if (value) {
+                newElement.setAttribute(key, value);
+              }
+            }
+          );
           break;
-        case "childs":
-          let map = new Map(Object.entries(elObj));
-          map.forEach((keysElement, typeElement) => this._appendElement(newElement, typeElement, keysElement));
+        case "$$": //childs (is array)
+          map.forEach(
+            (keysElement, index) => {
+              typeElement = Object.keys(keysElement)[0];
+              this._appendElement(newElement, typeElement, keysElement[typeElement]);
+            }
+          );
           break;
         default:
           ///////////////////////////////
           break;
       }
-      if (parent.shadowRoot) {
-        parent.shadowRoot.appendChild(newElement);
-      }
-      else {
-        parente.appendChild(newElement);
-      }
+    })
+
+    if (parent.shadowRoot) {
+      parent.shadowRoot.appendChild(newElement);
+    }
+    else {
+      parent.appendChild(newElement);
+    }
   } 
 
   _renderElement(elObj, whereAppend){
     let map = new Map(Object.entries(elObj));
-
-    map.forEach((keysEleme1nt, typeElement) => this._appendElement(this, typeElement, keysElement));
+    map.forEach((keysElement, typeElement) => { this._appendElement(this, typeElement, keysElement)});
   }
   
   _initProp(wkProp) {
-    let prop = wkProp.video.prop;
+    let prop = wkProp.video.$;
     prop.width = prop.width || this.offsetWidth;
     this._renderElement(wkProp, this.shadowRoot);
   }
