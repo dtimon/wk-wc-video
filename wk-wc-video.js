@@ -1,4 +1,4 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 //console.log(videojs);
 /**
@@ -38,15 +38,16 @@ class WkWcVideo extends PolymerElement {
   }
 
   _appendElement(parent, typeElement, keysElement) {
-    
+
     let newElement = document.createElement(typeElement);
-    
+
     let map = new Map(Object.entries(keysElement));
 
     map.forEach((value, key) => {
       let map = new Map(Object.entries(value));
       switch (key) {
-        case "$":          
+
+        case "$":
           map.forEach(
             (value, key) => {
               if (value) {
@@ -64,7 +65,7 @@ class WkWcVideo extends PolymerElement {
           );
           break;
         default:
-          ///////////////////////////////
+          /////////////////////////////// auotplay not wokrking
           break;
       }
     })
@@ -75,13 +76,13 @@ class WkWcVideo extends PolymerElement {
     else {
       parent.appendChild(newElement);
     }
-  } 
-
-  _renderElement(elObj, whereAppend){
-    let map = new Map(Object.entries(elObj));
-    map.forEach((keysElement, typeElement) => { this._appendElement(this, typeElement, keysElement)});
   }
-  
+
+  _renderElement(elObj, whereAppend) {
+    let map = new Map(Object.entries(elObj));
+    map.forEach((keysElement, typeElement) => { this._appendElement(this, typeElement, keysElement) });
+  }
+
   _initProp(wkProp) {
     let prop = wkProp.video.$;
     prop.width = prop.width || this.offsetWidth;

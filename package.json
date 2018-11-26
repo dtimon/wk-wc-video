@@ -3,8 +3,7 @@
   "description": "Video component for polymer 3",
   "main": "wk-wc-video.js",
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
-    "video.js": "^7.1.0"
+    "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
